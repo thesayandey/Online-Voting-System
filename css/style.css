@@ -1,0 +1,40 @@
+#titlesite{
+    font-family: 'Bebas Neue', cursive;
+    margin-left: 10px;
+}
+
+
+.top{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: orange;
+}
+
+#about{
+    float: right;
+    margin-top: 20px;
+    font-size: x-large;
+    margin-right: 10px;
+}
+
+.main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 500px;
+    margin-top: 100px;
+}
+
+.picture{
+    /* border: 2px solid red; */
+    padding: 10px;
+}
+
+.form{
+    /* border: 2px solid red; */
+    text-align: center;
+}
+
+#reg{
+    margin-top: 150px;
+    font-size: x-large;
+}
