@@ -6,6 +6,13 @@
 
     $userdata = $_SESSION['userdata'];
     $groupsdata = $_SESSION['groupsdata'];
+
+    if($_SESSION['userdata']['status'] == 0){
+        $status = "<b style='color:red'>Not Voted</b>";
+    }
+    else{
+        $status = "<b style='color:green'>Voted</b>";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +60,7 @@
             padding: 20px;
             /* margin-top: 150px; */
             float: left;
+            height: 300px;
         }
 
         #group{
@@ -70,6 +78,15 @@
             margin-top: 15px;
             grid-gap: 15px;
         }
+
+        #votebtn{
+            background-color: greenyellow;
+            font-size: larger;
+        }
+
+        #votebtn:hover{
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -77,7 +94,7 @@
     <div class="top">
     <div class="heading">
         <div class="back">
-            <input type="button" value="Back" id="back">
+            <a href="../"><input type="button" value="Back" id="back"></a>
         </div>    
     
         <div class="title">
@@ -85,7 +102,7 @@
         </div>
        
         <div class="logout">
-            <input type="button" value="Logout" id="logout">
+            <a href="logout.php"><input type="button" value="Logout" id="logout"></a>
         </div>
        
 
@@ -105,7 +122,7 @@
             <b>Name: </b><?php echo($userdata['name']); ?> <br><br>
             <b>Mobile: </b><?php echo($userdata['mobile']); ?> <br><br>
             <b>Address: </b><?php echo($userdata['address']); ?> <br><br>
-            <b>Status: </b><?php echo($userdata['status']); ?>
+            <b>Status: </b><span id="votests"></span><?php echo($status); ?>
         </div>
 
         <div id="group">
@@ -116,13 +133,16 @@
                         ?>
                             <div id="grp">
                                 <img src="../uploads/<?php echo($groupsdata[$i]['photo']); ?>" alt="Party photo" height="120" width="120"><br><br>
-                                <b>Group Name: </b><?php echo($groupsdata[$i]['photo']); ?><br><br>
+                                <b>Party Name: </b><?php echo($groupsdata[$i]['name']); ?><br><br>
                                 <b>No of votes: <?php echo($groupsdata[$i]['votes']); ?></b>
-                                <form action="">
-                                    <input type="hidden" name="gvotes">
+                               
+                                <form action="../api/vote.php" method="POST">
+                                    <input type="hidden" name="gvotes" value="<?php echo($groupsdata[$i]['votes']); ?>">
+                                    <input type="hidden" name="gid" value="<?php echo($groupsdata[$i]['id']); ?>">
                                     <!-- <input type="hidden" name=""> -->
-                                    <input type="button" value="Vote" name="votebtn" id="votebtn">
+                                    <input type="submit" value="Vote" name="votebtn" id="votebtn">
                                 </form>
+                                <hr>
                             </div>
                         <?php
                     }
